@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Website Title</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    /* Your provided CSS styles */
+    body {
+      background-color: black;
+      color: #FF0000; /* Bright Red */
+      font-family: 'Courier', Courier, monospace;
+    }
+
+    h1, p {
+      color: #FF0000;
+      font-family: 'Courier', Courier, monospace;
+    }
+
+    input {
+      background-color: rgba(255, 0, 0, 0);
+      color: #FFF000; /* Set to the same bright red as other text */
+      font-family: 'Courier', Courier, monospace;
+      padding: 8px;
+      margin: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #result {
+      color: #FF0000;
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Original question -->
+  <p id="question">How do I have a picture of where your life will end?</p>
+
+  <form id="originalForm">
+    <input type="text" id="userAnswer" placeholder="Your answer">
+  </form>
+
+  <!-- Placeholder for displaying result -->
+  <p id="result"></p>
+
+  <!-- Container for dynamic question sets -->
+  <div id="questionSetsContainer"></div>
+
+  <script>
+    var questionSets = [
+      { question: "In the gallery of my mind:", answer: "lost in the sands of time" },
+      { question: "Haha. Yeah. Next up: who's my favorite football player?", answer: "Marshawn Lynch" },
+      { question: "Yeah. and I preciate you capitalizing his name.\n \nWhat kind of animal was Gibby?", answer: "gromphadorhina" },
+      { question: "bugs are divine. they deserve to have their names capitalized. But I understand.\n \n \nHow do I have a picture of how your life will end?", answer: "Statues" },
+      { question: "And what is the three thousand three hundred and thirty first insect?", answer: "cicada" },
+      { question: "What have I got in my pocket?", answer: "power" }
+    ];
+
+    var currentQuestionIndex = 0;
+
+    document.getElementById("originalForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      checkAnswer();
+    });
+
+    function checkAnswer() {
+      var userAnswer = document.getElementById("userAnswer").value.toLowerCase();
+      var correctAnswer = questionSets[currentQuestionIndex].answer.toLowerCase();
+
+      if (userAnswer === correctAnswer) {
+        document.getElementById("result").innerText = "All-right.";
+        currentQuestionIndex++;
+
+        // Move to the next question or display a message if all questions are answered
+        if (currentQuestionIndex < questionSets.length) {
+          displayNextQuestion();
+        } else {
+          document.getElementById("questionSetsContainer").innerText = "Message this email. ";
+        }
+      } else {
+        document.getElementById("result").innerText = "Incorrect. Try again!";
+      }
+    }
+
+    function displayNextQuestion() {
+      document.getElementById("question").innerText = questionSets[currentQuestionIndex].question;
+      document.getElementById("userAnswer").value = "";
+      document.getElementById("result").innerText = "";
+    }
+
+    // Display the first question when the page loads
+    displayNextQuestion();
+  </script>
+
+</body>
+
+</html>
